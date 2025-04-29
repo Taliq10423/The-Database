@@ -1,0 +1,77 @@
+==============================
+INCIDENT REPORT – LOG ANALYSIS
+==============================
+
+Analyst Name: [Your Name]
+Date: April 29, 2025
+System: Parrot OS (Local Environment)
+Log Files Analyzed: auth_log.json, sys_log.json
+
+-------------------------------------
+1. Summary of Investigation
+-------------------------------------
+This investigation focused on authentication and system service logs collected in JSON format from a Linux-based system. The primary goal was to identify abnormal patterns, failed login attempts, and system instability, which are common indicators of compromise or malicious activity.
+
+The logs were manually analyzed using basic UNIX tools and `jq`, a lightweight JSON processor. The findings are documented below.
+
+-------------------------------------
+2. Key Findings
+-------------------------------------
+
+A. Authentication Log (auth_log.json):
+
+- Total Failed Login Attempts: 85
+- Suspicious Behavior:
+  Multiple failed login attempts were detected across various IPs. However, no single IP address generated 5 or more failed login attempts, suggesting a distributed attack or widespread probing.
+
+B. System Log (sys_log.json):
+
+- Total Service Crashes Detected: 29
+- Affected Processes:
+  Crashes were detected in several core system processes such as:
+    - kernel
+    - rsyslogd
+    - cron
+    - systemd
+    - networkd
+  These may indicate instability or misconfiguration, but could also point to attempted service disruption or exploitation attempts.
+
+-------------------------------------
+3. Potential Impact
+-------------------------------------
+
+- Repeated failed login attempts can lead to brute-force attacks, credential compromise, or account lockouts.
+- Frequent service crashes can result in degraded system performance, denial of service, or exposed vulnerabilities.
+
+-------------------------------------
+4. Recommendations
+-------------------------------------
+
+- Investigate user accounts targeted by failed login attempts.
+- Monitor and potentially block IP addresses with repeated login failures.
+- Correlate authentication patterns with crash timestamps to determine if they are linked.
+- Review system and service configurations for stability and harden exposed services.
+- Consider implementing automated alerts using tools like Fail2Ban or a SIEM platform.
+
+-------------------------------------
+5. Tools Used
+-------------------------------------
+
+- `jq`: JSON parsing and filtering
+- `awk`, `sort`, `uniq`: For aggregation of IP statistics
+- `nano`, `bash`: Report writing and scripting
+- Shell script: `daily_check.sh` created to automate report generation
+
+-------------------------------------
+6. Attachments
+-------------------------------------
+
+- daily_check.sh
+- DailyCheckReport.txt
+- Screenshots of terminal outputs (optional)
+- This incident_report.txt
+
+-------------------------------------
+End of Report
+-------------------------------------
+
